@@ -1,0 +1,46 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<section class="detail-page">
+  <div class="detail-container">
+    <article>
+      <div class="art-subinfo">
+        <div class="category-box">
+          <p>{{blog.category}}</p>
+        </div>
+        <p class="art-writer">投稿者:{{blog.writer}}</p>
+      </div>
+        <h1>{{blog.title}}</h1>
+        <div class="ad"><p>広告</p></div>
+        <div class="blog-text">
+          {{blog.text | linebreaks | urlize}}
+        </div>
+        <div class="blog-afterinfo">
+          <p class="art-date">{{blog.created_at}}</p>
+          <p>{{ blog.views }}PV</p>
+        </div>
+    </article>
+    <!-- <p><a onclick="api_like()"><span id="like">{{ blog.like }}</span>いいね！</a></p> -->
+    <a class="another-art" href="{% url 'blog:categories' %}"><p>他の記事を探す</p></a>
+    <!-- {% if page_obj.has_previous %}
+      <a href="{% url 'blog:blog_detail' older_article.pk %}">前の記事</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+      <a href="{% url 'blog:blog_detail' newer_article.pk %}">次の記事</a>
+    {% endif %} -->
+    <a class="button is-primary" href="{% url 'blog:comment_create' blog.pk %}"><p>コメントする</p></a>
+    <div class="ad"><p>広告</p></div>
+  </div>
+</section>
+<section class="comment">
+  <h2>コメント</h2>
+  {% for comment in blog.comment_set.all %}
+    <div class="each-comment">
+      <p class="commenter">{{ comment.commenter }}</p>
+      <p class="comment-content">{{ comment | linebreaks | urlize }}</p>
+      <p class="comment-date">{{comment.created_at}}</p>
+    </div>
+  {% empty %}
+    <p>コメントはまだありません</p>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <h1>カテゴリ内記事一覧</h1>
+    <p>{{ blog.category }}</p>
+    {% for blog in blog_list %}
+    <article>
+      <h2>{{ blog.title }}</h2>
+    </article>
+    {% endfor %}
+  </body>
+</html>

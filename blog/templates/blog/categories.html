@@ -1,0 +1,35 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<section class="categories-page">
+  <div class="categories-content-container">
+    <h1>カテゴリ一覧</h1>
+    {% for category in object_list %}
+      <div class="each-category-content">
+        <div class="each-category-box">
+          <p>{{category.name}}</p>
+        </div>
+        <div class="article-flex">
+        {% for blog in category.blogs.all|slice:":2" %}
+        <a href="{% url 'blog:blog_detail' blog.pk %}" class="article">
+          <p class="art-date">{{ blog.created_at }}</p>
+          <p class="art-views">{{ blog.views }}PV</p>
+          <p class="art-title">{{ blog.title}}</p>
+          <!-- {{ blog.like }}Likes  -->
+        </a>
+        {% endfor %}
+        </div>
+        <a class="to-category-detail" href="{% url 'blog:category_list' category.pk %}"><p>このカテゴリをもっと見る</p></a>
+      </div>
+    {% endfor %}
+    <div class="for-flex">
+      {% if page_obj.has_previous %}
+        <a class="left-arrow-a" href="?page={{page_obj.previous_page_number }}"></a>
+      {% endif %}
+        <p class="page-number">{{page_obj.number}}</p>
+      {% if page_obj.has_next %}
+        <a class="right-arrow-a" href="?page={{page_obj.next_page_number }}"></a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

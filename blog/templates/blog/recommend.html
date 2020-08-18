@@ -1,0 +1,21 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<section class="recommend-page">
+  <div class="recommend-container">
+    <h1>オススメ記事</h1>
+    <div class="each-category-content">
+      <div class="article-flex">
+      {% for blog in blog_views|slice:":10" %}
+      <a href="{% url 'blog:blog_detail' blog.pk %}" class="article">
+        <p class="art-date">{{ blog.created_at }}</p>
+        <p class="art-views">{{ blog.views }}PV</p>
+        <p class="art-title">{{ blog.title}}</p>
+        <!-- {{ blog.like }}Likes  -->
+      </a>
+      {% endfor %}
+      </div>
+    </div>
+    <a class="back-to-category-list" href="{% url 'blog:categories' %}"><p>カテゴリ一覧へ</p></a>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+<section class="search-page">
+  <div class="search-container">
+    <h1>検索結果</h1>
+    <div class="each-category-content">
+      <div class="article-flex">
+      {% if blog_list %}
+      {% for blog in blog_list %}
+      <a href="{% url 'blog:blog_detail' blog.pk %}" class="article">
+        <div class="art-category-box">
+          <p class="art-category">{{ blog.category }}</p>
+        </div>
+        <p class="art-date">{{ blog.created_at }}</p>
+        <h2 class="art-title">{{ blog.title}}</h2>
+        <!-- {{ blog.like }}Likes -->
+      </a>
+      {% endfor %}
+      </div>
+      {% else %}
+        <p class="no-result">検索結果はありません。</p>
+      {% endif %}
+    </div>
+    <div class="for-flex">
+      {% if page_obj.has_previous %}
+        <a class="left-arrow-a" href="?page={{page_obj.previous_page_number }}"></a>
+      {% endif %}
+        <p class="page-number">{{page_obj.number}}</p>
+      {% if page_obj.has_next %}
+        <a class="right-arrow-a" href="?page={{page_obj.next_page_number }}"></a>
+      {% endif %}
+    </div>
+    <p class="page-total-number">of {{ page_obj.paginator.num_pages }}</p>
+  </div>
+</section>
+{% endblock %}

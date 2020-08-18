@@ -1,0 +1,22 @@
+<p class="search-fractal">フラクタルを検索</p>
+
+<!-- <form action="{% url 'blog:search' %}" method="GET">
+  <div class="field">
+    <div class="control">
+      {{ form.key_word }}
+    </div>
+  </div>
+  <div class="field">
+    <div class="control">
+      <div class="select">
+        {{ form.category }}
+      </div>
+    </div>
+  </div>
+  <button type="submit">検索</button>
+</form> -->
+
+<form method="GET" action="{% url 'blog:search' %}">
+  <input type="text" name="keyword">
+  <button type="submit">検索</button>
+</form>

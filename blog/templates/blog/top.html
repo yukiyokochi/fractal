@@ -1,0 +1,45 @@
+{% extends 'blog/base.html' %}
+{% block content %}
+  <section class="top-page">
+    <div class="top-news">
+      <div class="top-news-container">
+        <p class="top-news-text">トップニュース</p>
+        <div class="article-flex">
+          {% for blog in blog_views %}
+            <a href="{% url 'blog:blog_detail' blog.pk %}" class="article">
+              <div class="art-category-box">
+                <p class="art-category">{{ blog.category }}</p>
+              </div>
+              <p class="art-date">{{ blog.created_at }}</p>
+              <p class="art-views">{{ blog.views }}PV</p>
+              <h2 class="art-title">{{ blog.title}}</h2>
+              <!-- {{ blog.like }}Likes -->
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="top-content">
+      <div class="top-content-container">
+        {% for category in object_list|slice:":3"  %}
+          <div class="each-category-content">
+            <div class="each-category-box">
+              <p>{{category.name}}</p>
+            </div>
+            <div class="article-flex">
+              {% for blog in category.blogs.all|slice:":4" %}
+              <a href="{% url 'blog:blog_detail' blog.pk %}" class="article">
+                <p class="art-date">{{ blog.created_at }}</p>
+                <p class="art-views">{{ blog.views }}PV</p>
+                <p class="art-title">{{ blog.title}}</p>
+                <!-- {{ blog.like }}Likes  -->
+              </a>
+              {% endfor %}
+            </div>
+            <a class="to-category-detail" href="{% url 'blog:category_list' category.pk %}"><p>このカテゴリをもっと見る</p></a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+{% endblock %}
